@@ -1,0 +1,96 @@
+create mysql db tables.
+
+xamp htdocs new file same dbname
+
+-> localhost/filename
+vscode folder uit htdocs, new file connect.php
+
+<?php
+
+    $server ="localhost"
+    $username ="root"
+    $password =""
+    $dbname ="crud2"
+
+    $conn = new mysqli($server,$username,$password,$dbname);
+
+    if($conn->connect_error){
+       die("Connection failed" .$conn->connect_error);
+    } 
+    ?>
+    
+    
+    index.php / insert.php
+    
+    <?php
+
+        require_once "connect.php"
+        
+        if(isset($_POST['submit'])){
+
+           $naam=$_POST['naam']; 
+           $achternaam=$_POST['achternaam']; 
+           $email=$_POST['email']; 
+           $telefoonnummer=$_POST['telefoonnummer']; 
+           $geboortedatum=$_POST['geboortedatum']; 
+
+           $sql = mysqli_query($conn"INSERT INTO crud2(naam,achternaam,email,telefoonnummer,geboortedatum)VALUES('$name','$achternaam, '$email', '$telefoonnummer','$geboortedatum', NOW())");''
+           
+           if($sql){
+                echo "<script>alert('New record succesfully added!!!');</script>"
+                echo "<script>document.location='index.php';</script>";
+           }else{   
+            echo "<script>alert('Something went wrong!!!');</script>"  
+           }
+        }
+
+
+
+?>
+<html>
+    <head> 
+        <title>Crud Oefening</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet"> 
+        <script> src="https://code.jquery.com/jquery-1.11.1.min.js" </script>
+        <script> src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" </script>
+        <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap.min.css" rel="stylesheet"> 
+    </head>
+    <body>
+        <div class="container" style="widht:50%"> 
+        <div class="row">
+        <div class="col-md-6">
+            <h2> Crud informatie systeem <h2>
+</div>
+</div>
+<form method="POST">
+    <div class="row">
+        <div class="col-md-6">
+            <label> naam <lable>
+            <input type="text" name="naam" class="form-control" placeholder="naam" required>
+</div>
+
+<div class="col-md-6">
+            <label> achternaam <lable>
+            <input type="text" name="achternaam" class="form-control" placeholder="achternaam" required>
+</div>
+
+<div class="col-md-6">
+            <label> email <lable>
+            <input type="text" name="email" class="form-control" placeholder="email" required>
+</div>
+
+<div class="col-md-6">
+            <label> telefoonnummer <lable>
+            <input type="text" name="telefoonnummer" class="form-control" placeholder="telefoonnummer" required>
+</div>
+
+<div class="col-md-6">
+            <label> geboortedatum <lable>
+            <input type="text" name="geboortedatum" class="form-control" placeholder="geboortedatum" required>
+</div>
+<div class="row" style="margin-top:1%">
+<div class="col-md-6">
+    <button type="text" name="submit" class="btn btn-primary">Submit</button>
+    <a href="#" class="btn btn-succes">Bekijk resultaat</a>
+    </body>
+</html>
